@@ -14,6 +14,10 @@
     NSString *imagePath = [command.arguments objectAtIndex:0];
     NSDictionary *options = [command.arguments objectAtIndex:1];
     id quality = options[@"quality"] ?: @100;
+    id idTargetWidth = options[@"targetWidth"] ?: @0;
+    id idTargetHeight = options[@"targetHeight"] ?: @0;
+    CGFloat targetWidth = (CGFloat) idTargetWidth;
+    CGFloat targetHeight = (CGFloat) idTargetHeight;
     
     self.quality = [quality unsignedIntegerValue];
     NSString *filePrefix = @"file://";
@@ -36,18 +40,28 @@
     PECropViewController *cropController = [[PECropViewController alloc] init];
     cropController.delegate = self;
     cropController.image = image;
+    cropController.keepingCropAspectRatio = YES;
+    
     // e.g.) Cropping center square
     CGFloat width = image.size.width;
     CGFloat height = image.size.height;
     CGFloat length = MIN(width, height);
+    if (targetWidth <= 0 || targetWidth > width) {
+        targetWidth = length;
+    }
+    if (targetHeight <= 0 || targetHeight > height) {
+        targetHeight = length;
+    }
+
     cropController.toolbarHidden = YES;
     cropController.rotationEnabled = NO;
+    cropController.keepingCropAspectRatio = YES;
     
     // TODO parameterize this
-    cropController.imageCropRect = CGRectMake((width - length) / 2,
-                                          (height - length) / 2,
-                                          length,
-                                          length);
+    cropController.imageCropRect = CGRectMake(0,
+                                          0,
+                                          targetWidth,
+                                          targetHeight);
     
     self.callbackId = command.callbackId;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:cropController];
