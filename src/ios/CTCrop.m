@@ -52,6 +52,15 @@
         targetHeight = length;
     }
 
+    CGFloat ratio = targetWidth / targetHeight;
+    if (ratio > 1) {
+        targetWidth = width;
+        targetHeight = targetWidth / ratio;
+    } else {
+        targetHeight = height;
+        targetWidth = targetHeight * ratio;
+    }
+
     cropController.toolbarHidden = YES;
     cropController.rotationEnabled = NO;
     cropController.keepingCropAspectRatio = YES;
