@@ -16,8 +16,8 @@
     id quality = options[@"quality"] ?: @100;
     id idTargetWidth = options[@"targetWidth"] ?: @0;
     id idTargetHeight = options[@"targetHeight"] ?: @0;
-    CGFloat targetWidth = (CGFloat) idTargetWidth;
-    CGFloat targetHeight = (CGFloat) idTargetHeight;
+    CGFloat targetWidth = (CGFloat) [idTargetWidth unsignedIntegerValue];
+    CGFloat targetHeight = (CGFloat) [idTargetHeight unsignedIntegerValue];
     
     self.quality = [quality unsignedIntegerValue];
     NSString *filePrefix = @"file://";
@@ -40,7 +40,6 @@
     PECropViewController *cropController = [[PECropViewController alloc] init];
     cropController.delegate = self;
     cropController.image = image;
-    cropController.keepingCropAspectRatio = YES;
     
     // e.g.) Cropping center square
     CGFloat width = image.size.width;
