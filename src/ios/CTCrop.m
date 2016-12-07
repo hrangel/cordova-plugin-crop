@@ -47,10 +47,10 @@
     CGFloat length = MIN(width, height);
     CGFloat ratio = targetWidth / targetHeight;
     if (ratio > 1) {
-        targetWidth = width;
+        targetWidth = length;
         targetHeight = targetWidth / ratio;
     } else {
-        targetHeight = height;
+        targetHeight = length;
         targetWidth = targetHeight * ratio;
     }
 
