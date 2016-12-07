@@ -45,13 +45,6 @@
     CGFloat width = image.size.width;
     CGFloat height = image.size.height;
     CGFloat length = MIN(width, height);
-    if (targetWidth <= 0 || targetWidth > width) {
-        targetWidth = length;
-    }
-    if (targetHeight <= 0 || targetHeight > height) {
-        targetHeight = length;
-    }
-
     CGFloat ratio = targetWidth / targetHeight;
     if (ratio > 1) {
         targetWidth = width;
